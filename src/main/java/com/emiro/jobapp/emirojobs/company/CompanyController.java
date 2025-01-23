@@ -1,7 +1,5 @@
 package com.emiro.jobapp.emirojobs.company;
 
-import com.emiro.jobapp.emirojobs.job.Job;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,9 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/company")
+@RequestMapping("/companies")
 public class CompanyController {
-    @Autowired
     private CompanyService companyService;
 
     public CompanyController(CompanyService companyService) {
@@ -19,30 +16,30 @@ public class CompanyController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Company> findById(@PathVariable Long id) {
+    public ResponseEntity<Company> findCompanyById(@PathVariable Long id) {
         return companyService.getCompanyById(id)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping
-    public ResponseEntity<List<Company>> findAll() {
+    public ResponseEntity<List<Company>> findAllCompanies() {
         return ResponseEntity.ok(companyService.getCompanies());
     }
 
     @PostMapping
-    public ResponseEntity<String> createJob(@RequestBody Company company) {
-        companyService.createCompany(company);
-        return ResponseEntity.status(HttpStatus.CREATED).body("success");
+    public ResponseEntity<Company> createCompany(@RequestBody Company company) {
+        Company createdCompany = companyService.createCompany(company);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdCompany);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Company> updateJob(@PathVariable Long id, @RequestBody Company updatedCompany) {
+    public ResponseEntity<Company> updateCompany(@PathVariable Long id, @RequestBody Company updatedCompany) {
         return companyService.updateCompany(id, updatedCompany).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCompanu(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteCompany(@PathVariable Long id) {
         return companyService.deleteCompany(id)
                 ? ResponseEntity.noContent().build()
                 : ResponseEntity.notFound().build();

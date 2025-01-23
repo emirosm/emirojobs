@@ -9,14 +9,14 @@ import java.util.List;
 @RestController
 @RequestMapping("/jobs")
 public class JobController {
-    private JobService jobService;
+    private final JobService jobService;
 
     public JobController(JobService jobService) {
         this.jobService = jobService;
     }
 
     @GetMapping
-    public ResponseEntity<List<Job>> findAll() {
+    public ResponseEntity<List<Job>> findAllJobs() {
         return ResponseEntity.ok(jobService.findAll());
     }
 

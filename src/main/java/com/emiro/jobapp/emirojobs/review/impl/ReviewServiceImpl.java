@@ -29,7 +29,7 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public Optional<Review> findById(Long companyId, Long reviewId) {
         Optional<Company> company = companyService.getCompanyById(companyId);
-        if(company.isPresent()) {
+        if (company.isPresent()) {
             List<Review> reviewList = company.get().getReviews();
             return Optional.ofNullable(reviewList.stream().filter(review -> Objects.equals(review.getId(), reviewId)).findFirst().orElse(null));
         }

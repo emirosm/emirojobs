@@ -38,7 +38,7 @@ public class ReviewController {
 
     @PutMapping("/{reviewId}")
     public ResponseEntity<Review> updateReview(@PathVariable Long companyId, @PathVariable Long reviewId, @RequestBody Review updatedReview) {
-        Optional<Review> reviewOptional = reviewService.updateReview(companyId,reviewId,updatedReview);
+        Optional<Review> reviewOptional = reviewService.updateReview(companyId, reviewId, updatedReview);
         return reviewOptional.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
