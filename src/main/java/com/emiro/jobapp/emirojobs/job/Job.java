@@ -1,6 +1,7 @@
 package com.emiro.jobapp.emirojobs.job;
 
 import com.emiro.jobapp.emirojobs.company.Company;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -16,6 +17,7 @@ public class Job {
     private String location;
 
     @ManyToOne
+    @JsonIgnore
     private Company company;
 
     public Job(Long id, String title, String description, String minSalary, String maxSalary, String location) {
